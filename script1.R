@@ -34,7 +34,7 @@ ggplot(data = mpg) +
   geom_point(mapping = aes(x = hwy, y = cty, color = displ < 5), size = 2)
 
 
-# exercise 3.5.1 ---
+# exercise 3 3.5.1 ---
 # 1
 ggplot(data = mpg) +
   geom_point(mapping = aes(x = displ, y = hwy)) +
@@ -56,12 +56,37 @@ ggplot(data = mpg) +
   facet_wrap(~ class, nrow = 3)
 
 
-
-
-
-
-
-
-
+# exercise 4 3.6.1
+# 1
+geom_line()
+geom_boxplot()
+geom_histogram()
+geom_area()
+# 2
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy, color = drv)) +
+  geom_point() +
+  geom_smooth(se = F)
+# 3
+ggplot(data = mpg, mapping = aes(x = displ, y = cty, col = drv)) +
+  geom_point(show.legend = T)
+# 4
+ggplot(data = diamonds, mapping = aes(x = carat, y = price, col = cut)) +
+  geom_point() +
+  geom_smooth(se = F)
+# 5
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+  geom_point() +
+  geom_smooth()
+ggplot() +
+  geom_point(data = mpg, mapping = aes(x = displ, y = hwy)) +
+  geom_smooth(data = mpg, mapping = aes(x = displ, y = hwy))
+# 6
+g <- ggplot(data = mpg, mapping = aes(x = displ, y = hwy))
+g + geom_point() + geom_smooth(se = F)
+g + geom_point() + geom_smooth(aes(group = drv), se = F)
+g + geom_point(aes(col = drv)) + geom_smooth(aes(col = drv), se = F)
+g + geom_point(aes(col = drv)) + geom_smooth(se = F)
+g + geom_point(aes(col = drv)) + geom_smooth(aes(linetype = drv), se = F)
+g + geom_point(aes(col = drv), shape = 16, size = 2)
 
 
