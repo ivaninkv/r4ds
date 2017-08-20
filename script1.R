@@ -104,7 +104,7 @@ ggplot(data = mpg) +
   facet_wrap(~ class, nrow = 3)
 
 
-# exercise 4 3.6.1
+# exercise 4 3.6.1 ----
 # 1
 geom_line()
 geom_boxplot()
@@ -138,7 +138,7 @@ g + geom_point(aes(col = drv)) + geom_smooth(aes(linetype = drv), se = F)
 g + geom_point(aes(col = drv), shape = 16, size = 2)
 
 
-# exercise 5 3.7.1
+# exercise 5 3.7.1 ----
 # 1
 ?stat_summary
 # original
@@ -185,7 +185,7 @@ ggplot(data = diamonds) +
   geom_bar(mapping = aes(x = cut, fill = color, y = ..prop.., group = color))
 
 
-# exercise 6 3.8.1
+# exercise 6 3.8.1 ----
 # 1
 ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) + 
   geom_point()
@@ -203,10 +203,41 @@ p2 <- ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
 multiplot(p1, p2, cols = 2) # first variant
 grid.arrange(p1, p2, ncol = 2) # second variant
 # 4
-? geom_boxplot
+?geom_boxplot
 ggplot(data = mpg, mapping = aes(x = drv, y = displ, col = class)) +
   geom_boxplot()
 
+
+# exercise 7 3.9.1 ----
+# 1
+diamonds %>% ggplot(aes(clarity)) +
+  geom_bar(aes(fill = cut), position = 'fill') +
+  #coord_flip() +
+  coord_polar()
+# 2
+?labs
+diamonds %>% ggplot(aes(clarity)) +
+  geom_bar(aes(fill = cut), position = 'fill', width = 1) +
+  coord_polar() +
+  labs(y = 'test')
+# 3
+?coord_map
+nz <- map_data("nz")
+ggplot(nz, aes(long, lat, group = group)) +
+  geom_polygon(fill = "white", colour = "black") +
+  coord_quickmap() # faster
+  #coord_map() # approximately spherical
+# coord_map projects a portion of the earth, which is approximately spherical,
+# onto a flat 2D plane using any projection defined by the mapproj package.
+# Map projections do not, in general, preserve straight lines,
+# so this requires considerable computation.
+# coord_quickmap is a quick approximation that does preserve straight lines.
+# It works best for smaller areas closer to the equator.
+# 4
+ggplot(data = mpg, mapping = aes(x = cty, y = hwy)) +
+  geom_point() +
+  geom_abline() +
+  coord_fixed()
 
 
 
