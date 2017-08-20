@@ -90,3 +90,51 @@ g + geom_point(aes(col = drv)) + geom_smooth(aes(linetype = drv), se = F)
 g + geom_point(aes(col = drv), shape = 16, size = 2)
 
 
+# exercise 5 3.7.1
+# 1
+?stat_summary
+# original
+ggplot(data = diamonds) + 
+  stat_summary(
+    mapping = aes(x = cut, y = depth),
+    fun.ymin = min,
+    fun.ymax = max,
+    fun.y = median
+  )
+# my plot
+diamonds %>%
+  group_by(cut) %>%
+  summarise(min = min(depth), max = max(depth), depth = median(depth)) %>%
+  ggplot(aes(x = cut, y = depth)) +
+  geom_pointrange(aes(ymin = min, ymax = max))
+# 2
+?geom_col
+ggplot(data = diamonds, mapping = aes(x = cut, y = carat)) +
+  geom_col() # data value
+ggplot(data = diamonds, mapping = aes(x = cut)) +
+  geom_bar() # count
+# 3
+library(rvest)
+h <- read_html('http://ggplot2.tidyverse.org/reference/index.html#section-layer-geoms')
+res <- html_nodes(h, 'td:nth-child(1) p') %>% 
+  html_text() %>% 
+  stringr::str_trim()
+fin.res <- res[grepl('stat', res)][grepl('geom_', res[grepl('stat', res)])]
+fin.res
+# 4
+?stat_smooth
+# method = "auto", formula = y ~ x, se = TRUE, n = 80, span = 0.75, fullrange = FALSE, level = 0.95
+# 5
+# incorrect
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, y = ..prop..))
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, fill = color, y = ..prop..))
+# correct
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, y = ..prop.., group = 1))
+ggplot(data = diamonds) + 
+  geom_bar(mapping = aes(x = cut, fill = color, y = ..prop.., group = color))
+
+
+
