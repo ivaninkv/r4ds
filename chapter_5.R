@@ -34,13 +34,42 @@ FALSE & NA
 
 
 # exercise 2 5.3.1 ----
+# 1
 flights %>% 
   arrange(desc(is.na(dep_time)))
+# 2
 flights %>% 
   arrange(desc(arr_delay))
+# 3
 flights %>% 
   arrange(air_time)
+# 4
 flights %>% 
   arrange(desc(air_time))
+
+
+# exercise 3 5.4.1 ----
+# 1
+flights %>% 
+  select(dep_time, dep_delay, arr_time, arr_delay)
+flights %>% 
+  select(4, 6, 7, 9)
+flights %>% 
+  select(one_of(c('dep_time', 'dep_delay', 'arr_time', 'arr_delay')))
+flights %>% 
+  select(starts_with('dep'), starts_with('arr'))
+flights %>% 
+  select(matches('^(dep|arr)_'))
+# 2
+flights %>% 
+  select(dep_delay, dep_time, dep_delay)
+# 3
+vars <- c('year', 'month', 'day', 'dep_delay', 'arr_delay')
+flights %>% 
+  select(one_of(vars))
+# 4
+select(flights, contains('TIME', ignore.case = F))
+
+
 
 
