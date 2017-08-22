@@ -71,7 +71,7 @@ flights %>%
 select(flights, contains('TIME', ignore.case = F))
 
 
-# exercise 3 5.5.2 ----
+# exercise 4 5.5.2 ----
 # 1
 rate <- 2400 / 1440
 flights %>% 
