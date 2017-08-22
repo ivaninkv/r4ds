@@ -71,5 +71,29 @@ flights %>%
 select(flights, contains('TIME', ignore.case = F))
 
 
-
+# exercise 3 5.5.2 ----
+# 1
+rate <- 2400 / 1440
+flights %>% 
+  transmute(dep_time = dep_time / rate, sched_dep_time = sched_dep_time / rate) %>% 
+  ggplot() +
+  geom_density(aes(dep_time), col = 'red', fill = 'red', alpha = 1/2) +
+  geom_density(aes(sched_dep_time), col = 'blue', fill = 'blue', alpha = 1/5)
+# 2
+flights %>% 
+  transmute(air_time, delta = arr_time - dep_time, error = delta < air_time) %>% 
+  filter(error == T)
+# 3
+flights %>% 
+  select(dep_time, sched_dep_time, dep_delay) %>% 
+  mutate(delta = dep_time - sched_dep_time)
+# 4
+flights %>% 
+  arrange(-dep_delay)
+filter(flights, min_rank(desc(dep_delay)) <= 10)
+# 5
+1:3 + 1:10
+# 6
+??trigonometric
+?Trig
 
